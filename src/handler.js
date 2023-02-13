@@ -19,11 +19,11 @@ const addBookHandler = (request, h) => {
     name, year, author, summary, publisher, pageCount, readPage, reading,
   } = request.payload;
 
-  const errorValidation = validateBookPayload(request.payload);
+  const errorMessage = validateBookPayload(request.payload);
 
-  if (errorValidation) {
+  if (errorMessage) {
     return h
-      .response(error(errorValidation))
+      .response(error(errorMessage))
       .code(400);
   }
 
@@ -62,6 +62,20 @@ const addBookHandler = (request, h) => {
     .code(500);
 };
 
-const getAllBooksHanlder = () => success({ books });
+const getAllBooksHandler = () => success({ books });
 
-module.exports = { addBookHandler, getAllBooksHanlder };
+const getBookByIdHandler = (request, h) => {
+  const { id } = request.params;
+
+  const book = books.filter((e) => e.id === id).at(0);
+
+  if (book) {
+    return success({ book });
+  }
+
+  return h
+    .response(error('Catatan tidak ditemukan'))
+    .code(404);
+};
+
+module.exports = { addBookHandler, getAllBooksHandler, getBookByIdHandler };
