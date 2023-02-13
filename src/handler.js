@@ -53,7 +53,7 @@ const addBookHandler = (request, h) => {
 
   if (isSuccess) {
     return h
-      .response(success('Buku berhasil ditambahkan', { bookId: id }))
+      .response(success({ bookId: id }, 'Buku berhasil ditambahkan'))
       .code(201);
   }
 
@@ -62,4 +62,6 @@ const addBookHandler = (request, h) => {
     .code(500);
 };
 
-module.exports = { addBookHandler };
+const getAllBooksHanlder = () => success({ books });
+
+module.exports = { addBookHandler, getAllBooksHanlder };
