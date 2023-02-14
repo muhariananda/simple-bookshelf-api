@@ -18,7 +18,14 @@ const validateBookPayload = ({ name, readPage, pageCount }, isUpdate = false) =>
 
 const addBookHandler = (request, h) => {
   const {
-    name, year, author, summary, publisher, pageCount, readPage, reading,
+    name,
+    year,
+    author,
+    summary,
+    publisher,
+    pageCount,
+    readPage,
+    reading,
   } = request.payload;
 
   const errorMessage = validateBookPayload(request.payload);
@@ -109,8 +116,23 @@ const editBookByIdHandler = (request, h) => {
   const { id } = request.params;
 
   const {
-    name, year, author, summary, publisher, pageCount, readPage, reading,
+    name,
+    year,
+    author,
+    summary,
+    publisher,
+    pageCount,
+    readPage,
+    reading,
   } = request.payload;
+
+  const errorMessage = validateBookPayload(request.payload, true);
+
+  if (errorMessage) {
+    return h
+      .response(error(errorMessage))
+      .code(400);
+  }
 
   const updatedAt = new Date().toISOString();
 
