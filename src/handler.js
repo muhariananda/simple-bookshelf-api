@@ -76,7 +76,7 @@ const getBookByIdHandler = (request, h) => {
   }
 
   return h
-    .response(error('Catatan tidak ditemukan'))
+    .response(error('Buku tidak ditemukan'))
     .code(404);
 };
 
@@ -106,12 +106,12 @@ const editBookByIdHandler = (request, h) => {
     };
 
     return h
-      .response(success('Catatan berhasil diperbauri'))
+      .response(success('Buku berhasil diperbauri'))
       .code(200);
   }
 
   return h
-    .response(error('Gagal memperbarui catatan. Id tidak ditemukan'))
+    .response(error('Gagal memperbarui buku. Id tidak ditemukan'))
     .code(404);
 };
 
