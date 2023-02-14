@@ -6,12 +6,15 @@ const success = (data = null, message = '') => {
       status,
       data,
     };
-  } if (!data) {
+  }
+
+  if (!data) {
     return {
       status,
       message,
     };
   }
+
   return {
     status,
     message,
