@@ -162,7 +162,7 @@ const editBookByIdHandler = (request, h) => {
     .code(404);
 };
 
-const deleteBookByIdHanlder = (request, h) => {
+const deleteBookByIdHandler = (request, h) => {
   const { id } = request.params;
 
   const index = books.findIndex((book) => book.id === id);
@@ -185,5 +185,5 @@ module.exports = {
   getAllBooksHandler,
   getBookByIdHandler,
   editBookByIdHandler,
-  deleteBookByIdHanlder,
+  deleteBookByIdHandler,
 };
