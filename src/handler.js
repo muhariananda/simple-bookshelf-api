@@ -3,7 +3,7 @@ const { success, error } = require('./response');
 const books = require('./book');
 
 const validateBookPayload = ({ name, readPage, pageCount }, isUpdate = false) => {
-  const order = isUpdate ? 'memperbauri' : 'menambahkan';
+  const order = isUpdate ? 'memperbarui' : 'menambahkan';
 
   if (!name) {
     return `Gagal ${order} buku. Mohon isi nama buku`;
@@ -160,7 +160,7 @@ const editBookByIdHandler = (request, h) => {
     };
 
     return h
-      .response(success('Buku berhasil diperbauri'))
+      .response(success(null, 'Buku berhasil diperbarui'))
       .code(200);
   }
 
@@ -178,7 +178,7 @@ const deleteBookByIdHandler = (request, h) => {
     books.splice(index, 1);
 
     return h
-      .response(success('Buku berhasil dihapus'))
+      .response(success(null, 'Buku berhasil dihapus'))
       .code(200);
   }
 

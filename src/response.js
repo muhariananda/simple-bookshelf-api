@@ -1,4 +1,4 @@
-const success = (data = null, message = '') => {
+const success = (data, message = '') => {
   const status = 'success';
 
   if (!message) {
