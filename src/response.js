@@ -1,16 +1,20 @@
-const success = (data, message = '') => {
+const success = (data = null, message = '') => {
   const status = 'success';
 
-  if (message) {
+  if (!message) {
+    return {
+      status,
+      data,
+    };
+  } if (!data) {
     return {
       status,
       message,
-      data,
     };
   }
-
   return {
     status,
+    message,
     data,
   };
 };

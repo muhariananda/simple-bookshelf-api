@@ -2,13 +2,15 @@ const { nanoid } = require('nanoid');
 const { success, error } = require('./response');
 const books = require('./book');
 
-const validateBookPayload = ({ name, readPage, pageCount }) => {
+const validateBookPayload = ({ name, readPage, pageCount }, isUpdate = false) => {
+  const order = isUpdate ? 'memperbauri' : 'menambahkan';
+
   if (!name) {
-    return 'Gagal menambahkan buku. Mohon isi nama buku';
+    return `Gagal ${order} buku. Mohon isi nama buku`;
   }
 
   if (readPage > pageCount) {
-    return 'Gagal menambah buku. readPage tidak boleh lebih besar dari pageCount';
+    return `Gagal ${order} buku. readPage tidak boleh lebih besar dari pageCount`;
   }
 
   return null;
@@ -78,4 +80,41 @@ const getBookByIdHandler = (request, h) => {
     .code(404);
 };
 
-module.exports = { addBookHandler, getAllBooksHandler, getBookByIdHandler };
+const editBookByIdHandler = (request, h) => {
+  const { id } = request.params;
+
+  const {
+    name, year, author, summary, publisher, pageCount, readPage, reading,
+  } = request.payload;
+
+  const updatedAt = new Date().toISOString();
+
+  const index = books.findIndex((book) => book.id === id);
+
+  if (index !== -1) {
+    books[index] = {
+      ...books[index],
+      name,
+      year,
+      author,
+      summary,
+      publisher,
+      pageCount,
+      readPage,
+      reading,
+      updatedAt,
+    };
+
+    return h
+      .response(success('Catatan berhasil diperbauri'))
+      .code(200);
+  }
+
+  return h
+    .response(error('Gagal memperbarui catatan. Id tidak ditemukan'))
+    .code(404);
+};
+
+module.exports = {
+  addBookHandler, getAllBooksHandler, getBookByIdHandler, editBookByIdHandler,
+};
