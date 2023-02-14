@@ -91,6 +91,13 @@ const getAllBooksHandler = (request, h) => {
       finished && values.includes(finished.toLowerCase())
         ? book.finished === (finished.toString() === '1')
         : true
+    ))
+    .map((book) => (
+      {
+        id: book.id,
+        name: book.name,
+        publisher: book.publisher,
+      }
     ));
 
   return h
